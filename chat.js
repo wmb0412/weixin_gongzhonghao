@@ -1,10 +1,10 @@
 const http = require('http');
 const axios = require('axios')
 
-async function getChat() {
+async function getChat(Content) {
     // console.log('333')
 
-    const API_KEY = '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';
+    const API_KEY = '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';
     const API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions';
 
     // const headers = {
@@ -47,22 +47,22 @@ async function getChat() {
     let msg = '我要挂了'
 
      await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            },
-            data: {
-                "prompt": "你好",
-                "temperature": 0.5,
-                "max_tokens": 50
-              }
-        })
+        "prompt": Content,
+        "temperature": 0.5,
+        "max_tokens": 50
+     }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer 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`
+        },
+    })
         .then(response => {
             msg = response?.data?.choices[0]?.text
+            console.log(response?.data)
         })
         .catch(error => {
-            console.log(error.res);
-            msg = '报错了'
+            console.log(JSON.stringify(error));
+            msg = error
         });
         return msg
 

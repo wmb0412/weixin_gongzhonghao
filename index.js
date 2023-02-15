@@ -19,14 +19,14 @@ router.get("/", async (ctx) => {
 //  自己加的一个用户发什么消息，就反弹什么消息的消息回复功能
 router.post('/message/post', async ctx => {
   const { ToUserName, FromUserName, Content, CreateTime } = ctx.request.body;
-  console.log('123,我是')
-  const msg = await getChat()
+  console.log('123,我是', ctx.request.body)
+  const msg = await getChat(Content)
   ctx.body = {
     ToUserName: FromUserName,
     FromUserName: ToUserName,
     CreateTime: +new Date(),
     MsgType: 'text',
-    Content: `${msg}反弹你发的消息：${Content}`,
+    Content: msg,
   };
 });
 
