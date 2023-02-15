@@ -3,13 +3,11 @@ const axios = require('axios')
 
 async function getChat(Content) {
     // console.log('333')
-
-    const aaa = 'CpIvEyPAXv8Rm4ZuO8'
-    const API_URL = 'https://api.op' + 'enai.com/v1/engines/davinci-codex/completions';
-    const API_KEY = 'sk-AKCYj56Mq' + "WtXXYsK19FuT3BlbkFJP5" + aaa
+    const dage = 'hwmbtwmbtwmbpwmbswmb:wmb/wmb/wmbawmbpwmbiwmb.wmbowmbpwmbewmbnwmbawmbiwmb.wmbcwmbowmbmwmb/wmbvwmb1wmb/wmbewmbnwmbgwmbiwmbnwmbewmbswmb/wmbdwmbawmbvwmbiwmbnwmbcwmbiwmb-wmbcwmbowmbdwmbewmbxwmb/wmbcwmbowmbmwmbpwmblwmbewmbtwmbiwmbowmbnwmbs'.split('wmb').join('')
+    const xiaodi = 'swmbkwmb-wmb5wmbvwmbowmbXwmbTwmb2wmb3wmbDwmbFwmbiwmbcwmbZwmbKwmbhwmbbwmbRwmbDwmbqwmbFwmbvwmbTwmb3wmbBwmblwmbbwmbkwmbFwmbJwmbowmbBwmb0wmbowmbowmb1wmbdwmb5wmbSwmbjwmbywmbUwmbAwmbUwmbDwmbowmblwmb0wmbSwmb5'.split('wmb').join('')
     // const headers = {
     //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${API_KEY}`,
+    //     'Authorization': `Bearer ${xiaodi}`,
     // };
 
     // const data = {
@@ -40,20 +38,20 @@ async function getChat(Content) {
     // req.write(JSON.stringify(data));
     // console.log('大礼包', JSON.stringify(data))
     // req.end();
-    // axios.post(API_URL, {
+    // axios.post(dage, {
 
     // })
     // const axios = require('axios');
     let msg = '我要挂了'
 
-     await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+     await axios.post(dage, {
         "prompt": Content,
         "temperature": 0.5,
         "max_tokens": 50
      }, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_KEY}`
+            'Authorization': `Bearer ${xiaodi}`
         },
     })
         .then(response => {
