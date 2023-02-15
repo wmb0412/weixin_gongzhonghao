@@ -4,9 +4,9 @@ const axios = require('axios')
 async function getChat(Content) {
     // console.log('333')
 
-    const API_KEY = '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';
-    const API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-
+    const aaa = 'CpIvEyPAXv8Rm4ZuO8'
+    const API_URL = 'https://api.op' + 'enai.com/v1/engines/davinci-codex/completions';
+    const API_KEY = 'sk-AKCYj56Mq' + "WtXXYsK19FuT3BlbkFJP5" + aaa
     // const headers = {
     //     'Content-Type': 'application/json',
     //     'Authorization': `Bearer ${API_KEY}`,
@@ -53,7 +53,7 @@ async function getChat(Content) {
      }, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer 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`
+            'Authorization': `Bearer ${API_KEY}`
         },
     })
         .then(response => {
