@@ -4,7 +4,8 @@ const logger = require("koa-logger");
 const bodyParser = require("koa-bodyparser");
 const fs = require("fs");
 const path = require("path");
-const { init: initDB, Counter } = require("./db");
+const { getChat } = require('./chat')
+// const { init: initDB, Counter } = require("./db");
 
 const router = new Router();
 
@@ -18,50 +19,52 @@ router.get("/", async (ctx) => {
 //  自己加的一个用户发什么消息，就反弹什么消息的消息回复功能
 router.post('/message/post', async ctx => {
   const { ToUserName, FromUserName, Content, CreateTime } = ctx.request.body;
-
+  console.log('123,我是')
+  const msg = await getChat()
   ctx.body = {
     ToUserName: FromUserName,
     FromUserName: ToUserName,
     CreateTime: +new Date(),
     MsgType: 'text',
-    Content: `反弹你发的消息：${Content}`,
+    Content: `${msg}反弹你发的消息：${Content}`,
   };
 });
+
 
 // 更新计数
-router.post("/api/count", async (ctx) => {
-  const { request } = ctx;
-  const { action } = request.body;
-  if (action === "inc") {
-    await Counter.create();
-  } else if (action === "clear") {
-    await Counter.destroy({
-      truncate: true,
-    });
-  }
+// router.post("/api/count", async (ctx) => {
+//   const { request } = ctx;
+//   const { action } = request.body;
+//   if (action === "inc") {
+//     await Counter.create();
+//   } else if (action === "clear") {
+//     await Counter.destroy({
+//       truncate: true,
+//     });
+//   }
 
-  ctx.body = {
-    code: 0,
-    data: await Counter.count(),
-  };
-});
+//   ctx.body = {
+//     code: 0,
+//     data: await Counter.count(),
+//   };
+// });
 
-// 获取计数
-router.get("/api/count", async (ctx) => {
-  const result = await Counter.count();
+// // 获取计数
+// router.get("/api/count", async (ctx) => {
+//   const result = await Counter.count();
 
-  ctx.body = {
-    code: 0,
-    data: result,
-  };
-});
+//   ctx.body = {
+//     code: 0,
+//     data: result,
+//   };
+// });
 
-// 小程序调用，获取微信 Open ID
-router.get("/api/wx_openid", async (ctx) => {
-  if (ctx.request.headers["x-wx-source"]) {
-    ctx.body = ctx.request.headers["x-wx-openid"];
-  }
-});
+// // 小程序调用，获取微信 Open ID
+// router.get("/api/wx_openid", async (ctx) => {
+//   if (ctx.request.headers["x-wx-source"]) {
+//     ctx.body = ctx.request.headers["x-wx-openid"];
+//   }
+// });
 
 const app = new Koa();
 app
@@ -72,7 +75,7 @@ app
 
 const port = process.env.PORT || 80;
 async function bootstrap() {
-  await initDB();
+  // await initDB();
   app.listen(port, () => {
     console.log("启动成功", port);
   });
